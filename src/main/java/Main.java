@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class Main {
@@ -15,15 +16,17 @@ public class Main {
             list.add(new Random().nextInt(1, 101));
         }
 
+        //list = List.of(1, 3, 5, 7);
+
         list.forEach(x -> System.out.print(x + " "));
         System.out.println("\n***");
-        System.out.printf("Среднее значение чётных чисел списка = %.2f",
-                (double) list.stream()
-                        .filter(x -> x % 2 == 0)
-                        .reduce(0, Integer::sum)
-                /
-                list.stream()
-                        .filter(x -> x % 2 == 0)
-                        .count());
+        double divisible = (double) list.stream()
+                .filter(x -> x % 2 == 0)
+                .reduce(0, Integer::sum);
+        long divider = list.stream()
+                .filter(x -> x % 2 == 0)
+                .count();
+        if(divider != 0) System.out.printf("Среднее значение чётных чисел списка = %.2f", divisible / divider);
+        else System.out.println("В списке нет чётных чисел");
     }
 }
